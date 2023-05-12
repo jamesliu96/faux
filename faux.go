@@ -6,12 +6,16 @@ import (
 	"crypto/cipher"
 	"crypto/sha512"
 	"image"
+	"image/color"
+	"image/png"
 	"io"
 
-	"image/color"
 	_ "image/gif"
 	_ "image/jpeg"
-	"image/png"
+
+	_ "golang.org/x/image/bmp"
+	_ "golang.org/x/image/tiff"
+	_ "golang.org/x/image/webp"
 )
 
 func Faux(r io.Reader, w io.Writer, key []byte) (err error) {
