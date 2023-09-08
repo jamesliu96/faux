@@ -24,7 +24,7 @@ func Faux(r io.Reader, w io.Writer, key []byte) (err error) {
 		return
 	}
 	bounds := m.Bounds()
-	nm := image.NewRGBA(bounds)
+	nm := image.NewNRGBA(bounds)
 	s := sha512.Sum384(key)
 	b, err := aes.NewCipher(s[:32])
 	if err != nil {
@@ -36,8 +36,7 @@ func Faux(r io.Reader, w io.Writer, key []byte) (err error) {
 	for y := 0; y < height; y++ {
 		for x := 0; x < width; x++ {
 			c := color.RGBAModel.Convert(m.At(x, y)).(color.RGBA)
-			sw.Write([]byte{c.R, c.G, c.B})
-			buf.Write([]byte{c.A})
+			sw.Write([]byte{c.R, c.G, c.B, c.A})
 		}
 	}
 	nm.Pix = buf.Bytes()
